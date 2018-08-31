@@ -53,7 +53,7 @@ public class DiamondSquare : MonoBehaviour {
         // iterate over vertices 
         for (int i = 0; i <= nFaces; i++)
         {
-            for (int j = 0; i <= nFaces; j++)
+            for (int j = 0; j <= nFaces; j++)
             {
                 // initialise vertices and uvs row by row
                 vertices[i * (nFaces + 1) + j] = new Vector3(-halfSize + j * faceSize, 0.0f, halfSize - i * faceSize);
