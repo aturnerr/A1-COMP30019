@@ -9,7 +9,7 @@ using UnityEngine;
 
 public class DiamondSquare : MonoBehaviour {
 
-    // number of faces 
+    // number of faces in one row 
     public int nFaces;
    
     // terrain dimensions
@@ -53,7 +53,7 @@ public class DiamondSquare : MonoBehaviour {
         // iterate over vertices 
         for (int i = 0; i <= nFaces; i++)
         {
-            for (int j = 0; i <= nFaces; j++)
+            for (int j = 0; j <= nFaces; j++)
             {
                 // initialise vertices and uvs row by row
                 vertices[i * (nFaces + 1) + j] = new Vector3(-halfSize + j * faceSize, 0.0f, halfSize - i * faceSize);
@@ -66,7 +66,7 @@ public class DiamondSquare : MonoBehaviour {
                     int topLeft = i * (nFaces + 1) + j;
                     int botLeft = (i + 1) * (nFaces + 1) + j;
 
-                    // our first triangle
+                    // first triangle
                     tris[triOffset] = topLeft;
                     tris[triOffset + 1] = topLeft + 1;
                     tris[triOffset + 2] = botLeft + 1;
@@ -76,10 +76,50 @@ public class DiamondSquare : MonoBehaviour {
                     tris[triOffset + 4] = botLeft + 1;
                     tris[triOffset + 5] = botLeft;
 
+                    // goes to next face because 6 vertices per square
                     triOffset += 6;
                 }
 
             }
+        }
+
+        // get corners
+        // top left
+        vertices[0].y = Random.Range(-height, height);
+        // top right
+        vertices[nFaces].y = Random.Range(-height, height);
+        // bottom right 
+        vertices[vertices.Length - 1].y = Random.Range(-height, height);
+        // bottom left
+        vertices[vertices.Length - 1 - nFaces].y = Random.Range(-height, height);
+
+        // number of iterations required
+        int iterations = (int)Mathf.Log(nFaces, 2); 
+        // entire terrain taken initially; one square
+        int numSquares = 1;
+        // number of squares in each iteration 
+        int squareSize = nFaces;
+
+        
+        for (int i = 0; i < iterations; i++)
+        {
+            int row = 0;
+            for (int j = 0; j < numSquares; j++) {
+
+                int col = 0;
+
+                for (int k = 0; k < numSquares; k++)
+                {
+                    DiamondSquareSteps(row, col, squareSize, height);
+                    col += squareSize;
+                }
+                row += squareSize;
+            }
+            // terrain is divided in every step
+            numSquares *= 2;
+            squareSize /= 2;
+            // depends how steep of a terrain you want
+            height *= 0.5f;
         }
 
         mesh.vertices = vertices;
@@ -89,4 +129,23 @@ public class DiamondSquare : MonoBehaviour {
         mesh.RecalculateBounds();
         mesh.RecalculateNormals();
 	}
+
+    void DiamondSquareSteps(int row, int col, int size, float offset)
+    {
+        int halfSize = (int)(size * 0.5f);
+        
+        // two starting corners
+        int topLeft = row * (nFaces + 1) + col;
+        int botLeft = (row + size) * (nFaces + 1) + col;
+
+        // diamond step 
+        int mid = (int)(row + halfSize) * (nFaces + 1) + (int)(col + halfSize);
+        vertices[mid].y = (vertices[topLeft].y + vertices[topLeft + size].y + vertices[botLeft].y + vertices[botLeft + size].y) * 0.25f + Random.Range(-offset, offset);
+
+        // square step 
+        vertices[topLeft + halfSize].y = (vertices[topLeft].y + vertices[topLeft + size].y + vertices[mid].y) / 3 + Random.Range(-offset, offset);
+        vertices[mid - halfSize].y = (vertices[topLeft].y + vertices[botLeft].y + vertices[mid].y) / 3 + Random.Range(-offset, offset);
+        vertices[mid + halfSize].y = (vertices[topLeft + size].y + vertices[botLeft + size].y + vertices[mid].y) / 3 + Random.Range(-offset, offset);
+        vertices[botLeft + halfSize].y = (vertices[botLeft].y + vertices[botLeft + size].y + vertices[mid].y) / 3 + Random.Range(-offset, offset);
+    }
 }
