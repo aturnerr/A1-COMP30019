@@ -6,8 +6,8 @@ public class waterPosition : MonoBehaviour {
 	public float minHeight;
 	// Use this for initialization
 	void Start () {
-		minHeight = DiamondSquare.MinHeight();
-		Debug.Log(minHeight);
+		//minHeight = DiamondSquare.MinHeight();
+		//Debug.Log(minHeight);
 	}
 
 	// Update is called once per frame

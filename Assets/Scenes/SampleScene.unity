@@ -368,8 +368,6 @@ MonoBehaviour:
   m_Name:
   m_EditorClassIdentifier:
   nFaces: 128
-  nFaces: 64
->>>>>>> master
   size: 30
   height: 8
   minHeight: 0
