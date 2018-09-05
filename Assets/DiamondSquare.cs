@@ -148,4 +148,28 @@ public class DiamondSquare : MonoBehaviour {
         vertices[mid + halfSize].y = (vertices[topLeft + size].y + vertices[botLeft + size].y + vertices[mid].y) / 3 + Random.Range(-offset, offset);
         vertices[botLeft + halfSize].y = (vertices[botLeft].y + vertices[botLeft + size].y + vertices[mid].y) / 3 + Random.Range(-offset, offset);
     }
+    
+    // find the minHeight of the diamond square terrain
+    public float MinHeight()
+    {
+        float minHeight = float.MaxValue;
+
+        for (int i = 0; i < nVertices; i++)
+        {
+            if (vertices[i].y < minHeight) minHeight = vertices[i].y;
+        }
+        return minHeight;
+    }
+
+    public float MaxHeight()
+    {
+        float maxHeight = float.MinValue;
+
+        for (int i = 0; i < nVertices; i++)
+        {
+            if (vertices[i].y > maxHeight) maxHeight = vertices[i].y;
+        }
+
+        return maxHeight;
+    }
 }
