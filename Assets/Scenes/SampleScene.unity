@@ -278,8 +278,13 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: ca833f750ddaa7b47865ad6280a66c82, type: 3}
+<<<<<<< HEAD
   m_Name: 
   m_EditorClassIdentifier: 
+=======
+  m_Name:
+  m_EditorClassIdentifier:
+>>>>>>> 9cd9f6774e8ecd242e73ae312574f7370c1c0460
   nFaces: 64
   size: 30
   height: 5
