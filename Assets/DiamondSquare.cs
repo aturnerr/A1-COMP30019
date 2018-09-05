@@ -19,6 +19,8 @@ public class DiamondSquare : MonoBehaviour {
     public float minHeight;
     public float maxHeight;
 
+    public Transform water;
+
     public Renderer rend;
 
     // vertex array
@@ -41,8 +43,9 @@ public class DiamondSquare : MonoBehaviour {
         rend.material.SetFloat("_MIN", minHeight);
         rend.material.SetFloat("_MAX", maxHeight);
         rend.material.SetFloat("_Height1", Mathf.Lerp(minHeight, maxHeight, 0.8f));
-        Debug.Log(minHeight);
-        Debug.Log(maxHeight);
+	    water.transform.position = new Vector3(water.transform.position.x, Mathf.Lerp(minHeight, maxHeight, 0.5f), water.transform.position.z);
+	    //Debug.Log(minHeight);
+	    //Debug.Log(maxHeight);
 	}
 
 	//
