@@ -43,6 +43,9 @@ public class DiamondSquare : MonoBehaviour {
         rend.material.SetFloat("_MIN", minHeight);
         rend.material.SetFloat("_MAX", maxHeight);
         rend.material.SetFloat("_Height1", Mathf.Lerp(minHeight, maxHeight, 0.8f));
+	    rend.material.SetFloat("_Height2", Mathf.Lerp(minHeight, maxHeight, 0.53f));
+	    rend.material.SetFloat("_Height3", Mathf.Lerp(minHeight, maxHeight, 0.48f));
+	    rend.material.mainTextureScale = new Vector2(50,50);
 	    water.transform.position = new Vector3(water.transform.position.x, Mathf.Lerp(minHeight, maxHeight, 0.5f), water.transform.position.z);
 	    //Debug.Log(minHeight);
 	    //Debug.Log(maxHeight);
