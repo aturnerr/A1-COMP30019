@@ -41,8 +41,8 @@ public class DiamondSquare : MonoBehaviour {
         rend.material.SetFloat("_MIN", minHeight);
         rend.material.SetFloat("_MAX", maxHeight);
         rend.material.SetFloat("_Height1", Mathf.Lerp(minHeight, maxHeight, 0.8f));
-        Debug.Log(minHeight);
-        Debug.Log(maxHeight);
+        //Debug.Log(minHeight);
+        //Debug.Log(maxHeight);
 	}
 
 	//
