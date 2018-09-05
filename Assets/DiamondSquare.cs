@@ -16,10 +16,16 @@ public class DiamondSquare : MonoBehaviour {
     public float size;
     public float height;
 
+    public float minHeight;
+    public float maxHeight;
+
+    public Renderer rend;
+
     // vertex array
     Vector3[] vertices;
     // vertex count
     int nVertices;
+
 
 
 	// Use this for initialization
@@ -27,6 +33,15 @@ public class DiamondSquare : MonoBehaviour {
 
         CreateTerrain();
 
+        minHeight = MinHeight();
+        maxHeight = MaxHeight();
+        //this.renderer.material.SetFloat("minHeight", minHeight);
+        rend = GetComponent<Renderer>();
+        rend.material.shader = Shader.Find("Custom/TerrainShader");
+        rend.material.SetFloat("_MIN", minHeight);
+        rend.material.SetFloat("_MAX", maxHeight);
+        Debug.Log(minHeight);
+        Debug.Log(maxHeight);
 	}
 
 	//

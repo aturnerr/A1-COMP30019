@@ -5,8 +5,8 @@ Shader "Custom/TerrainShader" {
      _HeightMax ("Height Max", Float) = 1
      _ColorMin ("Tint Color At Min", Color) = (0,0,0,1)
      _ColorMax ("Tint Color At Max", Color) = (1,1,1,1)
-		 _Min ("Min", Float) = 0
-		 _Max ("Max", Float) = 0
+		 _MIN ("MIN", Float) = 0
+		 _MAX ("MAX", Float) = 0
 	}
 	SubShader{
 		Tags { "RenderType" = "Opaque" }
@@ -25,17 +25,15 @@ Shader "Custom/TerrainShader" {
     fixed4 _ColorMax;
     float _HeightMin;
     float _HeightMax;
+		float _MIN;
+		float _MAX;
 
 		struct Input {
 			float2 uv_MainTex;
 			float3 worldPos;
-			float3 localPos;
 		};
 
-
-
 		void surf (Input IN, inout SurfaceOutputStandard o) {
-			float3 localPos = IN.worldPos -  mul(unity_ObjectToWorld, float4(0,0,0,1)).xyz;
 			if (IN.worldPos.y >= _HeightMax)
 				o.Albedo = float3(1,1,1);
 			//float heightPercent = inverseLerp(minHeight, maxHeight, IN.worldPos.y);
