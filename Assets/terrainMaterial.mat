@@ -6,8 +6,8 @@ Material:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
-  m_Name: Mat
-  m_Shader: {fileID: 4800000, guid: ad2eeae580b70cd418e96b3354af300b, type: 3}
+  m_Name: terrainMaterial
+  m_Shader: {fileID: 4800000, guid: 7fbfd9f2bbff4e44694f9c23343ab50d, type: 3}
   m_ShaderKeywords: 
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 0
@@ -60,9 +60,18 @@ Material:
     - _DetailNormalMapScale: 1
     - _DstBlend: 0
     - _GlossMapScale: 1
-    - _Glossiness: 0.5
+    - _Glossiness: 0
     - _GlossyReflections: 1
+    - _Height1: 0.9
+    - _Height2: 1
+    - _Height3: 1
+    - _HeightMax: 1
+    - _HeightMin: -4
+    - _MAX: 0
+    - _MIN: 0
+    - _Max: 0
     - _Metallic: 0
+    - _Min: 0
     - _Mode: 0
     - _OcclusionStrength: 1
     - _Parallax: 0.02
@@ -73,4 +82,8 @@ Material:
     - _ZWrite: 1
     m_Colors:
     - _Color: {r: 1, g: 1, b: 1, a: 1}
+    - _ColorMax: {r: 1, g: 1, b: 1, a: 1}
+    - _ColorMin: {r: 0, g: 0.4433962, b: 0.044135552, a: 1}
+    - _Colour1: {r: 0.8207547, g: 0.8207547, b: 0.8207547, a: 1}
+    - _Colour2: {r: 0.011764706, g: 0.30980393, b: 0, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}

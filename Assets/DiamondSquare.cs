@@ -9,17 +9,23 @@ using UnityEngine;
 
 public class DiamondSquare : MonoBehaviour {
 
-    // number of faces in one row 
+    // number of faces in one row
     public int nFaces;
-   
+
     // terrain dimensions
     public float size;
     public float height;
 
-    // vertex array 
+    public float minHeight;
+    public float maxHeight;
+
+    public Renderer rend;
+
+    // vertex array
     Vector3[] vertices;
     // vertex count
     int nVertices;
+
 
 
 	// Use this for initialization
@@ -27,30 +33,40 @@ public class DiamondSquare : MonoBehaviour {
 
         CreateTerrain();
 
+        minHeight = MinHeight();
+        maxHeight = MaxHeight();
+        //this.renderer.material.SetFloat("minHeight", minHeight);
+        rend = GetComponent<Renderer>();
+        rend.material.shader = Shader.Find("Custom/TerrainShader");
+        rend.material.SetFloat("_MIN", minHeight);
+        rend.material.SetFloat("_MAX", maxHeight);
+        rend.material.SetFloat("_Height1", Mathf.Lerp(minHeight, maxHeight, 0.8f));
+        //Debug.Log(minHeight);
+        //Debug.Log(maxHeight);
 	}
-	
-	// 
+
+	//
 	void CreateTerrain () {
-        
+
         // number of vertices in the terrain
         nVertices = (nFaces + 1) * (nFaces + 1);
         // array holding all the vertices
         vertices = new Vector3[nVertices];
         // U,V positions of the vertices
         Vector2[] uvs = new Vector2[nVertices];
-        // triangles in the terrain 
+        // triangles in the terrain
         int[] tris = new int[nFaces * nFaces * 6];
 
         float halfSize = size * 0.5f;
         float faceSize = size / nFaces;
 
-        // create new mesh 
+        // create new mesh
         Mesh mesh = new Mesh();
         GetComponent<MeshFilter>().mesh = mesh;
 
         int triOffset = 0;
 
-        // iterate over vertices 
+        // iterate over vertices
         for (int i = 0; i <= nFaces; i++)
         {
             for (int j = 0; j <= nFaces; j++)
@@ -88,19 +104,19 @@ public class DiamondSquare : MonoBehaviour {
         vertices[0].y = Random.Range(-height, height);
         // top right
         vertices[nFaces].y = Random.Range(-height, height);
-        // bottom right 
+        // bottom right
         vertices[vertices.Length - 1].y = Random.Range(-height, height);
         // bottom left
         vertices[vertices.Length - 1 - nFaces].y = Random.Range(-height, height);
 
         // number of iterations required
-        int iterations = (int)Mathf.Log(nFaces, 2); 
+        int iterations = (int)Mathf.Log(nFaces, 2);
         // entire terrain taken initially; one square
         int numSquares = 1;
-        // number of squares in each iteration 
+        // number of squares in each iteration
         int squareSize = nFaces;
 
-        
+
         for (int i = 0; i < iterations; i++)
         {
             int row = 0;
@@ -133,22 +149,22 @@ public class DiamondSquare : MonoBehaviour {
     void DiamondSquareSteps(int row, int col, int size, float offset)
     {
         int halfSize = (int)(size * 0.5f);
-        
+
         // two starting corners
         int topLeft = row * (nFaces + 1) + col;
         int botLeft = (row + size) * (nFaces + 1) + col;
 
-        // diamond step 
+        // diamond step
         int mid = (int)(row + halfSize) * (nFaces + 1) + (int)(col + halfSize);
         vertices[mid].y = (vertices[topLeft].y + vertices[topLeft + size].y + vertices[botLeft].y + vertices[botLeft + size].y) * 0.25f + Random.Range(-offset, offset);
 
-        // square step 
+        // square step
         vertices[topLeft + halfSize].y = (vertices[topLeft].y + vertices[topLeft + size].y + vertices[mid].y) / 3 + Random.Range(-offset, offset);
         vertices[mid - halfSize].y = (vertices[topLeft].y + vertices[botLeft].y + vertices[mid].y) / 3 + Random.Range(-offset, offset);
         vertices[mid + halfSize].y = (vertices[topLeft + size].y + vertices[botLeft + size].y + vertices[mid].y) / 3 + Random.Range(-offset, offset);
         vertices[botLeft + halfSize].y = (vertices[botLeft].y + vertices[botLeft + size].y + vertices[mid].y) / 3 + Random.Range(-offset, offset);
     }
-    
+
     // find the minHeight of the diamond square terrain
     public float MinHeight()
     {
