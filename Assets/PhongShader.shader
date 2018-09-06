@@ -30,9 +30,10 @@ Shader "Unlit/PhongShader"
 	{
 		_PointLightColor("Point Light Color", Color) = (0, 0, 0, 1)
 		_PointLightPosition("Point Light Position", Vector) = (0.0, 0.0, 0.0)
-		_Colour1("Colour 1", Color) = (0,0,0,1)
-		_Colour2("Colour 2", Color) = (1,1,1,1)
-		_Colour3("Colour 3", Color) = (1,1,1,1)
+		_Colour1("Mountain top Colour", Color) = (0,0,0,1)
+		_Colour2("Grass Colour", Color) = (1,1,1,1)
+		_Colour3("Sand Colour", Color) = (1,1,1,1)
+		_Colour4("Deep sand colour", Color) = (1,1,1,0)
 		_Height1("Height 1", Float) = 1
 		_Height2("Height 2", Float) = 1
 		_Height3("Height 3", Float) = 1
@@ -52,6 +53,7 @@ Shader "Unlit/PhongShader"
 			fixed4 _Colour1;
 			fixed4 _Colour2;
 			fixed4 _Colour3;
+			fixed4 _Colour4;
 			float _Height1;
 			float _Height2;
 			float _Height3;
@@ -86,18 +88,34 @@ Shader "Unlit/PhongShader"
 				// Transform vertex in world coordinates to camera coordinates, and pass colour
 				o.vertex = mul(UNITY_MATRIX_MVP, v.vertex);
 				o.color = float4(1,1,1,1);
-
+                //o.customColour = abs(v.normal.y);
 				// Pass out the world vertex position and world normal to be interpolated
 				// in the fragment shader (and utilised)
 				o.worldVertex = worldVertex;
 				o.worldNormal = worldNormal;
-
+                fixed4 oceanColour = lerp(_Colour3.rgba, _Colour4.rgba, (_Height2-1 - o.worldVertex.y)/2);
+                fixed4 transition1 = lerp(_Colour1.rgba, _Colour2.rgba, ((_Height1+0.5 - o.worldVertex.y) / ((_Height1+0.5)-(_Height1-0.5))));
+                fixed4 transition2 = lerp(_Colour2.rgba, _Colour3.rgba, ((_Height2+0.25 - o.worldVertex.y) / ((_Height2+0.25)-(_Height2-0.25))));
+                
+                // https://forum.unity.com/threads/change-surface-color-based-on-the-angle-between-surface-normal-and-world-up.355215/
+                float x = dot(v.normal, v.normal.y);
+                x = x * 0.5-0.5;
+                float4 slopeColour = lerp(_Colour2.rgba, _Colour2.rgba, x+0.7);
+                float4 slopeColour2 = lerp(_Colour1.rgba, float4(0.6,0.6,0.6,1), x+0.8);
+                
 				if (o.worldVertex.y >= _Height1)
-					o.color = _Colour1;
-				if ((o.worldVertex.y <= _Height1) & (o.worldVertex.y >= _Height2))
+					o.color = slopeColour2;
+				if ((o.worldVertex.y <= _Height1+0.5) & (o.worldVertex.y >= _Height1-0.5))
+				    o.color = transition1;
+				if ((o.worldVertex.y <= _Height1-0.5) & (o.worldVertex.y >= _Height2+0.25))
 					o.color = _Colour2;
-				if (o.worldVertex.y <= _Height2)
+				if ((o.worldVertex.y <= _Height2+0.25) & (o.worldVertex.y >= _Height2-0.25))
+				    o.color = transition2;
+				if ((o.worldVertex.y <= _Height2-0.25) & (o.worldVertex.y >= _Height2-1))
 					o.color = _Colour3;
+				if (o.worldVertex.y <= _Height2-1)
+					o.color = oceanColour;
+				//o.color *= saturate(v.normal.y+0.2);
 
 				return o;
 			}

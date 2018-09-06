@@ -50,10 +50,6 @@ Shader "Custom/TerrainShader" {
 			if (IN.worldPos.y >= _Height1)
 				//o.Albedo = tex2D (_TopTex, IN.uv_MainTex).rgb;
 				o.Albedo = _Colour1.rgb;
-			//if ((IN.worldPos.y <= _Height1 + 0.2) & (IN.worldPos.y >= _Height1 - 0.2))
-
-				//fixed4 transition1 = lerp(_Colour1.rgba, _Colour2.rgba, 0.5);
-				//o.Albedo = transition1.rgb;
 
 			if ((IN.worldPos.y <= _Height1) & (IN.worldPos.y >= _Height2))
 				//o.Albedo = tex2D (_BaseTex, IN.uv_MainTex).rgb;
