@@ -6,9 +6,9 @@ using System.Collections;
 
 public class Orbit : MonoBehaviour
 {
-    public Transform target;
-    public float speed = 10;
-
+    // public Transform target;
+    //public float speed = 10;
+    /*
     void Update()
     {
         // vector between object and target, the direction to look in
@@ -21,5 +21,7 @@ public class Orbit : MonoBehaviour
         transform.localRotation = Quaternion.Slerp(current, rotation, Time.deltaTime);
         // actual movement
         transform.Translate(0, 0, speed * Time.deltaTime);
-    }
+
+    }*/
+
 }
