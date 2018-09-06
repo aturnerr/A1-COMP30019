@@ -15,6 +15,14 @@ public class CameraMove : MonoBehaviour {
 
     public DiamondSquare terrain;
 
+    public Camera myCamera;
+
+    void Start()
+    {
+        //myCamera = Camera.main;
+        //myCamera.enabled = true;
+    }
+
     // Update is called once per frame
     void Update () {
         
@@ -25,29 +33,28 @@ public class CameraMove : MonoBehaviour {
         if (Input.GetKey(KeyCode.W)) {
             if (transform.localPosition.z + increment < halfSize)
             {
-                transform.localPosition += new Vector3(0.0f, 0.0f, increment);
+                transform.localPosition += myCamera.transform.forward*increment;
             }
-            //transform.Translate(new Vector3(increment * Time.deltaTime, 0, 0));
         }
         // z axis backwards
         if (Input.GetKey(KeyCode.S)) {
             if (transform.localPosition.z - increment > -halfSize)
             {
-                transform.localPosition -= new Vector3(0.0f, 0.0f, increment);
+                transform.localPosition -= myCamera.transform.forward * increment;
             }
         }
         // x axis forwards
         if (Input.GetKey(KeyCode.D)) {
             if (transform.localPosition.x + increment < halfSize)
             {
-                transform.localPosition += new Vector3(increment, 0.0f, 0.0f);
+                transform.localPosition += myCamera.transform.right * increment;
             }
         }
         // x axis backwards
         if (Input.GetKey(KeyCode.A)) {
             if (transform.localPosition.x - increment > -halfSize)
             {
-                transform.localPosition -= new Vector3(increment, 0.0f, 0.0f);
+                transform.localPosition -= myCamera.transform.right * increment;
             }
         }
 

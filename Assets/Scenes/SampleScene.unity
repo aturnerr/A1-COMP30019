@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.43667555, g: 0.48427123, b: 0.5645229, a: 1}
+  m_IndirectSpecularColor: {r: 0.43667564, g: 0.48427135, b: 0.56452316, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -315,6 +315,7 @@ MonoBehaviour:
   panSpeed: 0.2
   halfSize: 0
   terrain: {fileID: 1071910782}
+  myCamera: {fileID: 534669904}
 --- !u!1 &800788341
 GameObject:
   m_ObjectHideFlags: 0
