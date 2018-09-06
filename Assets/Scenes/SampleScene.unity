@@ -142,9 +142,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 274b01d3a6eae734abf4b9eb840fa381, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  spinSpeed: 0
+  m_Name:
+  m_EditorClassIdentifier:
+  spinSpeed: 10
   rend: {fileID: 0}
 --- !u!135 &286388774
 SphereCollider:
@@ -223,8 +223,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: e168bfeaa6612f14a86811645cbc132d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
+  m_Name:
+  m_EditorClassIdentifier:
   gameObject: {fileID: 800788345}
 --- !u!1 &534669902
 GameObject:
@@ -309,12 +309,13 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 65d30944d742c6d42b9e3350570be653, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
+  m_Name:
+  m_EditorClassIdentifier:
   increment: 0.2
-  panSpeed: 0.2
+  panSpeed: 6
   halfSize: 0
   terrain: {fileID: 1071910782}
+  myCamera: {fileID: 534669904}
 --- !u!1 &800788341
 GameObject:
   m_ObjectHideFlags: 0
@@ -413,8 +414,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: a3d3ef1a5bbfb4e0a910fbbe5830b1f9, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
+  m_Name:
+  m_EditorClassIdentifier:
   waterMode: 2
   disablePixelLights: 1
   textureSize: 256
@@ -434,8 +435,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: d6ae6000d7d64dc41924c459c3a669b6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
+  m_Name:
+  m_EditorClassIdentifier:
   Scale: 0.1
   Speed: 1
   NoiseStrength: 1
@@ -469,8 +470,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: da9710b00800b664a8accde41f32dd6d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
+  m_Name:
+  m_EditorClassIdentifier:
   nFaces: 128
   size: 30
 --- !u!23 &802435006
@@ -537,8 +538,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: a3d3ef1a5bbfb4e0a910fbbe5830b1f9, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
+  m_Name:
+  m_EditorClassIdentifier:
   waterMode: 2
   disablePixelLights: 1
   textureSize: 256
@@ -577,8 +578,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: ca833f750ddaa7b47865ad6280a66c82, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
+  m_Name:
+  m_EditorClassIdentifier:
   nFaces: 128
   size: 30
   height: 6
@@ -651,8 +652,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 199aeb3684610ec458d9d98f71db6b8e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
+  m_Name:
+  m_EditorClassIdentifier:
   sunSphere: {fileID: 1535521442}
   rend: {fileID: 0}
 --- !u!1 &1535521438

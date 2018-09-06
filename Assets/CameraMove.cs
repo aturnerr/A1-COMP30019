@@ -1,19 +1,27 @@
-// the following code is adapted from Learn Everything Fast on Youtube:
-// https://www.youtube.com/watch?v=lYIRm4QEqro
+// some the following code is adapted from Learn Everything Fast on Youtube:
+// https://www.youtube.com/channel/UCG5XadFg6icC2TcF0I5DIig
 
 using UnityEngine;
 using System.Collections;
 
 public class CameraMove : MonoBehaviour {
 
-    public float increment = 0.2f;
-    public float panSpeed = 5f;
-    private float yaw = 0.0f;
-    private float pitch = 0.0f;
+    public float increment;
+    public float panSpeed;
+    private float yaw;
+    private float pitch;
 
     public float halfSize;
 
     public DiamondSquare terrain;
+
+    public Camera myCamera;
+
+    void Start()
+    {
+        //myCamera = Camera.main;
+        //myCamera.enabled = true;
+    }
 
     // Update is called once per frame
     void Update () {
@@ -22,38 +30,48 @@ public class CameraMove : MonoBehaviour {
         halfSize = terrain.size * 0.5f;
 
         // z axis forward
-        if (Input.GetKey(KeyCode.W)) {
-            if (transform.localPosition.z + increment < halfSize)
-            {
-                transform.localPosition += new Vector3(0.0f, 0.0f, increment);
-            }
-            //transform.Translate(new Vector3(increment * Time.deltaTime, 0, 0));
+        if (Input.GetKey(KeyCode.W))
+        {
+            transform.localPosition += myCamera.transform.forward*increment;
         }
         // z axis backwards
-        if (Input.GetKey(KeyCode.S)) {
-            if (transform.localPosition.z - increment > -halfSize)
-            {
-                transform.localPosition -= new Vector3(0.0f, 0.0f, increment);
-            }
+        if (Input.GetKey(KeyCode.S))
+        { 
+            transform.localPosition -= myCamera.transform.forward * increment;
         }
         // x axis forwards
-        if (Input.GetKey(KeyCode.D)) {
-            if (transform.localPosition.x + increment < halfSize)
-            {
-                transform.localPosition += new Vector3(increment, 0.0f, 0.0f);
-            }
+        if (Input.GetKey(KeyCode.D))
+        {
+            transform.localPosition += myCamera.transform.right * increment;
         }
         // x axis backwards
-        if (Input.GetKey(KeyCode.A)) {
-            if (transform.localPosition.x - increment > -halfSize)
-            {
-                transform.localPosition -= new Vector3(increment, 0.0f, 0.0f);
-            }
+        if (Input.GetKey(KeyCode.A))
+        {
+             transform.localPosition -= myCamera.transform.right * increment;
         }
 
-        yaw += panSpeed * Input.GetAxis("Mouse X");
-        pitch -= panSpeed * Input.GetAxis("Mouse Y");
+        // check if within bounds
+        if (transform.localPosition.z > halfSize)
+        {
+            transform.localPosition -= new Vector3(0.0f, 0.0f, increment);
+        }
+        if (transform.localPosition.z < -halfSize)
+        {
+            transform.localPosition += new Vector3(0.0f, 0.0f, increment);
+        }
+        if (transform.localPosition.x > halfSize)
+        {
+            transform.localPosition -= new Vector3(increment, 0.0f, 0.0f);
+        }
+        if (transform.localPosition.x < -halfSize)
+        {
+            transform.localPosition += new Vector3(increment, 0.0f, 0.0f);
+        }
 
+        // retrieve mouse input
+        yaw += Input.GetAxis("Mouse X") * panSpeed;
+        pitch -= Input.GetAxis("Mouse Y") * panSpeed;
+        // rotate camera based on mouse
         transform.eulerAngles = new Vector3(pitch, yaw, 0.0f);
 
     }
