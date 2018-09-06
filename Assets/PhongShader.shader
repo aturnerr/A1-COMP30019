@@ -28,8 +28,14 @@ Shader "Unlit/PhongShader"
 {
 	Properties
 	{
-		_PointLightColor("Point Light Color", Color) = (0, 0, 0)
+		_PointLightColor("Point Light Color", Color) = (0, 0, 0, 1)
 		_PointLightPosition("Point Light Position", Vector) = (0.0, 0.0, 0.0)
+		_Colour1("Colour 1", Color) = (0,0,0,1)
+		_Colour2("Colour 2", Color) = (1,1,1,1)
+		_Colour3("Colour 3", Color) = (1,1,1,1)
+		_Height1("Height 1", Float) = 1
+		_Height2("Height 2", Float) = 1
+		_Height3("Height 3", Float) = 1
 	}
 	SubShader
 	{
@@ -43,6 +49,12 @@ Shader "Unlit/PhongShader"
 
 			uniform float3 _PointLightColor;
 			uniform float3 _PointLightPosition;
+			fixed4 _Colour1;
+			fixed4 _Colour2;
+			fixed4 _Colour3;
+			float _Height1;
+			float _Height2;
+			float _Height3;
 
 			struct vertIn
 			{
@@ -73,12 +85,19 @@ Shader "Unlit/PhongShader"
 
 				// Transform vertex in world coordinates to camera coordinates, and pass colour
 				o.vertex = mul(UNITY_MATRIX_MVP, v.vertex);
-				o.color = v.color;
+				o.color = float4(1,1,1,1);
 
 				// Pass out the world vertex position and world normal to be interpolated
 				// in the fragment shader (and utilised)
 				o.worldVertex = worldVertex;
 				o.worldNormal = worldNormal;
+
+				if (o.worldVertex.y >= _Height1)
+					o.color = _Colour1;
+				if ((o.worldVertex.y <= _Height1) & (o.worldVertex.y >= _Height2))
+					o.color = _Colour2;
+				if (o.worldVertex.y <= _Height2)
+					o.color = _Colour3;
 
 				return o;
 			}

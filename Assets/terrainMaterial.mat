@@ -7,7 +7,7 @@ Material:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_Name: terrainMaterial
-  m_Shader: {fileID: 4800000, guid: ad2eeae580b70cd418e96b3354af300b, type: 3}
+  m_Shader: {fileID: 4800000, guid: ecdf23b29ad14db4fad04d12a84c671f, type: 3}
   m_ShaderKeywords: 
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 0
@@ -100,6 +100,9 @@ Material:
     - _Color: {r: 1, g: 1, b: 1, a: 1}
     - _ColorMax: {r: 1, g: 1, b: 1, a: 1}
     - _ColorMin: {r: 0, g: 0.4433962, b: 0.044135552, a: 1}
-    - _Colour1: {r: 0.8207547, g: 0.8207547, b: 0.8207547, a: 1}
-    - _Colour2: {r: 0.011764706, g: 0.30980393, b: 0, a: 1}
+    - _Colour1: {r: 0.49411765, g: 0.47058824, b: 0.43137255, a: 1}
+    - _Colour2: {r: 0.4392157, g: 0.44705883, b: 0.29411766, a: 1}
+    - _Colour3: {r: 0.6117647, g: 0.49803922, b: 0.3529412, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
+    - _PointLightColor: {r: 1, g: 1, b: 1, a: 1}
+    - _PointLightPosition: {r: 0, g: 30, b: 0, a: 1}

@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.43667564, g: 0.48427135, b: 0.56452316, a: 1}
+  m_IndirectSpecularColor: {r: 0.43667555, g: 0.48427123, b: 0.5645229, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -209,7 +209,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 274b01d3a6eae734abf4b9eb840fa381, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  spinSpeed: 5
+  spinSpeed: 0
+  rend: {fileID: 0}
 --- !u!135 &286388774
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -461,6 +462,7 @@ GameObject:
   - component: {fileID: 1071910784}
   - component: {fileID: 1071910783}
   - component: {fileID: 1071910782}
+  - component: {fileID: 1071910786}
   m_Layer: 0
   m_Name: Terrain
   m_TagString: Untagged
@@ -485,6 +487,7 @@ MonoBehaviour:
   minHeight: 0
   maxHeight: 0
   water: {fileID: 800788345}
+  sunSphere: {fileID: 1535521442}
   rend: {fileID: 0}
 --- !u!23 &1071910783
 MeshRenderer:
@@ -541,6 +544,19 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1071910786
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1071910781}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 199aeb3684610ec458d9d98f71db6b8e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sunSphere: {fileID: 1535521442}
+  rend: {fileID: 0}
 --- !u!1 &1535521438
 GameObject:
   m_ObjectHideFlags: 0
@@ -552,7 +568,6 @@ GameObject:
   - component: {fileID: 1535521441}
   - component: {fileID: 1535521440}
   - component: {fileID: 1535521439}
-  - component: {fileID: 1535521443}
   - component: {fileID: 1535521444}
   m_Layer: 0
   m_Name: Baby Sun
@@ -628,17 +643,6 @@ Transform:
   m_Father: {fileID: 286388777}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 90, y: 0, z: 0}
---- !u!114 &1535521443
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1535521438}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b490a5ae53857e64bae49fda58ea349b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!108 &1535521444
 Light:
   m_ObjectHideFlags: 0

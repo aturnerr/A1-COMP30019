@@ -20,6 +20,7 @@ public class DiamondSquare : MonoBehaviour {
     public float maxHeight;
 
     public Transform water;
+    public Transform sunSphere;
 
     public Renderer rend;
 
@@ -38,13 +39,14 @@ public class DiamondSquare : MonoBehaviour {
         minHeight = MinHeight();
         maxHeight = MaxHeight();
         //this.renderer.material.SetFloat("minHeight", minHeight);
-        /*rend = GetComponent<Renderer>();
-        rend.material.shader = Shader.Find("Custom/TerrainShader");
-        rend.material.SetFloat("_MIN", minHeight);
-        rend.material.SetFloat("_MAX", maxHeight);
+        rend = GetComponent<Renderer>();
+        rend.material.shader = Shader.Find("Unlit/PhongShader");
+        
+        //rend.material.SetFloat("_MIN", minHeight);
+        //rend.material.SetFloat("_MAX", maxHeight);
         rend.material.SetFloat("_Height1", Mathf.Lerp(minHeight, maxHeight, 0.8f));
-	    rend.material.SetFloat("_Height2", Mathf.Lerp(minHeight, maxHeight, 0.53f));
-	    rend.material.SetFloat("_Height3", Mathf.Lerp(minHeight, maxHeight, 0.48f));*/
+	    rend.material.SetFloat("_Height2", Mathf.Lerp(minHeight, maxHeight, 0.55f));
+	    rend.material.SetFloat("_Height3", Mathf.Lerp(minHeight, maxHeight, 0.48f));
 	    water.transform.position = new Vector3(water.transform.position.x, Mathf.Lerp(minHeight, maxHeight, 0.5f), water.transform.position.z);
 	    //Debug.Log(minHeight);
 	    //Debug.Log(maxHeight);
