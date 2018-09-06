@@ -481,7 +481,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   nFaces: 128
   size: 30
-  height: 8
+  height: 6
   minHeight: 0
   maxHeight: 0
   water: {fileID: 800788345}
