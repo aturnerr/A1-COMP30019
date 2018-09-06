@@ -2,7 +2,6 @@
 // https://www.youtube.com/channel/UCG5XadFg6icC2TcF0I5DIig
 
 using UnityEngine;
-using System.Collections;
 
 public class CameraMove : MonoBehaviour {
 
@@ -14,65 +13,69 @@ public class CameraMove : MonoBehaviour {
     public float halfSize;
 
     public DiamondSquare terrain;
-
-    public Camera myCamera;
+    public Rigidbody rb;
+    
+    
 
     void Start()
     {
-        //myCamera = Camera.main;
-        //myCamera.enabled = true;
-    }
-
-    // Update is called once per frame
-    void Update () {
-        
         // use to determine the limits of the terrain
         halfSize = terrain.size * 0.5f;
-
+        // set the initial positions of the camera rigidbody
+        rb = GetComponent<Rigidbody>();
+        pitch = 20;
+        yaw = 45;
+        rb.transform.position = new Vector3(-halfSize, rb.position.y, -halfSize);
+    }
+    
+    void Update()
+    {
+        // retrieve mouse input
+        yaw += Input.GetAxis("Mouse X") * panSpeed * Time.deltaTime;
+        pitch -= Input.GetAxis("Mouse Y") * panSpeed * Time.deltaTime;
+        // rotate camera based on mouse
+        rb.transform.eulerAngles = new Vector3(pitch, yaw, 0.0f);
+    }
+    
+    // Update is called once per frame
+    void FixedUpdate () {
         // z axis forward
         if (Input.GetKey(KeyCode.W))
         {
-            transform.localPosition += myCamera.transform.forward*increment;
+            rb.position += transform.forward*increment;
         }
         // z axis backwards
         if (Input.GetKey(KeyCode.S))
         { 
-            transform.localPosition -= myCamera.transform.forward * increment;
+            rb.position -= transform.forward*increment;
         }
         // x axis forwards
         if (Input.GetKey(KeyCode.D))
         {
-            transform.localPosition += myCamera.transform.right * increment;
+            rb.position += transform.right*increment;
         }
         // x axis backwards
         if (Input.GetKey(KeyCode.A))
         {
-             transform.localPosition -= myCamera.transform.right * increment;
+            rb.position -= transform.right*increment;
         }
 
         // check if within bounds
         if (transform.localPosition.z > halfSize)
         {
-            transform.localPosition -= new Vector3(0.0f, 0.0f, increment);
+            rb.position -= new Vector3(0.0f, 0.0f, increment);
         }
         if (transform.localPosition.z < -halfSize)
         {
-            transform.localPosition += new Vector3(0.0f, 0.0f, increment);
+            rb.position += new Vector3(0.0f, 0.0f, increment);
         }
         if (transform.localPosition.x > halfSize)
         {
-            transform.localPosition -= new Vector3(increment, 0.0f, 0.0f);
+            rb.position -= new Vector3(increment, 0.0f, 0.0f);
         }
         if (transform.localPosition.x < -halfSize)
         {
-            transform.localPosition += new Vector3(increment, 0.0f, 0.0f);
-        }
-
-        // retrieve mouse input
-        yaw += Input.GetAxis("Mouse X") * panSpeed;
-        pitch -= Input.GetAxis("Mouse Y") * panSpeed;
-        // rotate camera based on mouse
-        transform.eulerAngles = new Vector3(pitch, yaw, 0.0f);
-
+            rb.position += new Vector3(increment, 0.0f, 0.0f);
+        }  
     }
 }

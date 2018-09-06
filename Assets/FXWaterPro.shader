@@ -72,10 +72,12 @@ struct v2f {
 v2f vert(appdata v)
 {
 	v2f o;
+	// larger and smaller sin wave, added to the vertex
 	float4 waveDisplacement = float4(0.0f, sin(v.vertex.x*5 + (_Time.y * 0.4f)) * 0.03f, 0.0f, 0.0f);
 	float4 waveDisplacement2 = float4(0.0f, sin(v.vertex.x + (_Time.y * 0.5f)) * 0.06f, 0.0f, 0.0f);
 	v.vertex += waveDisplacement;
 	v.vertex += waveDisplacement2;
+	
 	o.pos = UnityObjectToClipPos(v.vertex);
 	
 

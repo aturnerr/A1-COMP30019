@@ -11,48 +11,41 @@ public class DiamondSquare : MonoBehaviour {
 
     // number of faces in one row
     public int nFaces;
-
     // terrain dimensions
     public float size;
     public float height;
-
     public float minHeight;
     public float maxHeight;
 
     public Transform water;
     public Transform sunSphere;
-
+    public Transform cameraObject;
     public Renderer rend;
-
     // vertex array
     Vector3[] vertices;
     // vertex count
     int nVertices;
 
-
-
 	// Use this for initialization
 	void Start () {
-
         CreateTerrain();
-
+        // find the min and max heights of the newly generated terrain
         minHeight = MinHeight();
         maxHeight = MaxHeight();
-        //this.renderer.material.SetFloat("minHeight", minHeight);
+        
+	    // get the phong shader script
         rend = GetComponent<Renderer>();
         rend.material.shader = Shader.Find("Unlit/PhongShader");
-        
-        //rend.material.SetFloat("_MIN", minHeight);
-        //rend.material.SetFloat("_MAX", maxHeight);
+        // and set the height properties according to the min and max heights
         rend.material.SetFloat("_Height1", Mathf.Lerp(minHeight, maxHeight, 0.8f));
 	    rend.material.SetFloat("_Height2", Mathf.Lerp(minHeight, maxHeight, 0.55f));
 	    rend.material.SetFloat("_Height3", Mathf.Lerp(minHeight, maxHeight, 0.48f));
+	    // adjust the position of the water, object and sun based on where the terrain generated
 	    water.transform.position = new Vector3(water.transform.position.x, Mathf.Lerp(minHeight, maxHeight, 0.5f), water.transform.position.z);
-	    //Debug.Log(minHeight);
-	    //Debug.Log(maxHeight);
+	    cameraObject.transform.position = new Vector3(cameraObject.transform.position.x, Mathf.Abs(Mathf.Lerp(minHeight, maxHeight, 1.0f))+3, cameraObject.transform.position.z);
+	    sunSphere.transform.position = water.transform.position;
 	}
 
-	//
 	void CreateTerrain () {
 
         // number of vertices in the terrain
@@ -151,6 +144,7 @@ public class DiamondSquare : MonoBehaviour {
 
         mesh.RecalculateBounds();
         mesh.RecalculateNormals();
+	    GetComponent<MeshCollider>().sharedMesh = mesh;
 	}
 
     void DiamondSquareSteps(int row, int col, int size, float offset)
@@ -172,7 +166,7 @@ public class DiamondSquare : MonoBehaviour {
         vertices[botLeft + halfSize].y = (vertices[botLeft].y + vertices[botLeft + size].y + vertices[mid].y) / 3 + Random.Range(-offset, offset);
     }
 
-    // find the minHeight of the diamond square terrain
+    // find the min and max height of the diamond square terrain
     public float MinHeight()
     {
         float minHeight = float.MaxValue;

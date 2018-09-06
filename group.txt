@@ -1,0 +1,5 @@
+Adam Turner 	910935
+	- phong lllumination, terrain colours/transitions, water plane/shaders, camera rigidbody collision
+
+Amie Xie 	911389
+	- diamond square terrain algorithm, flying camera control, sun object and rotation

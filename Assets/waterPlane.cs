@@ -4,6 +4,12 @@ using UnityEngine;
 
 public class waterPlane : MonoBehaviour {
 	
+	// creates a flat plane with a larger number of vertices
+	// the standard plane only contains 10x10 vertices, this script generates a new plane with a custom amount,
+	// useful for more detailed wave effects
+	
+	// based off the diamond square script
+	
 	public int nFaces;
 	public float size;
 
@@ -14,11 +20,6 @@ public class waterPlane : MonoBehaviour {
 	void Start ()
 	{
 		CreatePlane();
-	}
-	
-	// Update is called once per frame
-	void Update () {
-		
 	}
 
 	void CreatePlane()
@@ -83,13 +84,7 @@ public class waterPlane : MonoBehaviour {
 		// bottom left
 		vertices[vertices.Length - 1 - nFaces].y = transform.position.y;
 
-		// number of iterations required
-		int iterations = (int)Mathf.Log(nFaces, 2);
-		// entire terrain taken initially; one square
-		int numSquares = 1;
-		// number of squares in each iteration
-		int squareSize = nFaces;
-
+		// set the mesh values
 		mesh.vertices = vertices;
 		mesh.uv = uvs;
 		mesh.triangles = tris;

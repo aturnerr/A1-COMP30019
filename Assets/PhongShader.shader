@@ -27,13 +27,17 @@
 Shader "Unlit/PhongShader"
 {
 	Properties
-	{
+	{   
+	    // colour of the light source
 		_PointLightColor("Point Light Color", Color) = (0, 0, 0, 1)
+		// position of the light source
 		_PointLightPosition("Point Light Position", Vector) = (0.0, 0.0, 0.0)
+		// terrain colours
 		_Colour1("Mountain top Colour", Color) = (0,0,0,1)
 		_Colour2("Grass Colour", Color) = (1,1,1,1)
 		_Colour3("Sand Colour", Color) = (1,1,1,1)
 		_Colour4("Deep sand colour", Color) = (1,1,1,0)
+		// height values of the terrain, set by the diamondsquare script
 		_Height1("Height 1", Float) = 1
 		_Height2("Height 2", Float) = 1
 		_Height3("Height 3", Float) = 1
@@ -93,29 +97,38 @@ Shader "Unlit/PhongShader"
 				// in the fragment shader (and utilised)
 				o.worldVertex = worldVertex;
 				o.worldNormal = worldNormal;
-                fixed4 oceanColour = lerp(_Colour3.rgba, _Colour4.rgba, (_Height2-1 - o.worldVertex.y)/2);
+
+                // https://forum.unity.com/threads/change-surface-color-based-on-the-angle-between-surface-normal-and-world-up.355215/
+                // calculate dot product for mountain slopes
+                float x = dot(v.normal, v.normal.y);
+                // between 0-1 range
+                x = x * 0.5-0.5;
+                // interpolate between the colour and a darker grey
+                float4 slopeColour2 = lerp(_Colour1.rgba, float4(0.6,0.6,0.6,1), x+0.8);
+                
+                // transition interpolations
+                fixed4 oceanTransition = lerp(_Colour3.rgba, _Colour4.rgba, (_Height2-1 - o.worldVertex.y)/2);
                 fixed4 transition1 = lerp(_Colour1.rgba, _Colour2.rgba, ((_Height1+0.5 - o.worldVertex.y) / ((_Height1+0.5)-(_Height1-0.5))));
                 fixed4 transition2 = lerp(_Colour2.rgba, _Colour3.rgba, ((_Height2+0.25 - o.worldVertex.y) / ((_Height2+0.25)-(_Height2-0.25))));
                 
-                // https://forum.unity.com/threads/change-surface-color-based-on-the-angle-between-surface-normal-and-world-up.355215/
-                float x = dot(v.normal, v.normal.y);
-                x = x * 0.5-0.5;
-                float4 slopeColour = lerp(_Colour2.rgba, _Colour2.rgba, x+0.7);
-                float4 slopeColour2 = lerp(_Colour1.rgba, float4(0.6,0.6,0.6,1), x+0.8);
-                
+                // terrain colours
 				if (o.worldVertex.y >= _Height1)
 					o.color = slopeColour2;
+			    // first transition segment, between the mountain tops and grass
 				if ((o.worldVertex.y <= _Height1+0.5) & (o.worldVertex.y >= _Height1-0.5))
 				    o.color = transition1;
+				// grass segment
 				if ((o.worldVertex.y <= _Height1-0.5) & (o.worldVertex.y >= _Height2+0.25))
 					o.color = _Colour2;
+                // second transition segment, between the grass and sand
 				if ((o.worldVertex.y <= _Height2+0.25) & (o.worldVertex.y >= _Height2-0.25))
 				    o.color = transition2;
+                // sand segment
 				if ((o.worldVertex.y <= _Height2-0.25) & (o.worldVertex.y >= _Height2-1))
 					o.color = _Colour3;
+                // third transition segment, darkens the sand as it goes deeper
 				if (o.worldVertex.y <= _Height2-1)
-					o.color = oceanColour;
-				//o.color *= saturate(v.normal.y+0.2);
+					o.color = oceanTransition;
 
 				return o;
 			}
