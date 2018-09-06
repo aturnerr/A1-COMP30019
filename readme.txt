@@ -25,3 +25,6 @@ Sources
 	- https://www.youtube.com/watch?v=1HV8GbFnCik (diamond square)
 	- Workshop 2 solutions (sun rotation)
 	- Workshop 5 solutions (phong illumination)
+
+
+ps: if the sun orbit is too fast the spin value can be edited on the 'parent sphere' object in inspector :)
