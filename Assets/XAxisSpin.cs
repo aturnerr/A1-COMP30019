@@ -3,7 +3,7 @@ using System.Collections;
 
 public class XAxisSpin : MonoBehaviour {
 
-    public float spinSpeed = 5;
+    public float spinSpeed = 10;
 
     public Renderer rend;
 

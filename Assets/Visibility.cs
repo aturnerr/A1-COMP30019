@@ -13,6 +13,7 @@ public class Visibility : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
+        // sphere will be same height as water
         this.transform.localPosition = new Vector3 (this.transform.position.x, gameObject.position.y, this.transform.position.z);
     }
 }
