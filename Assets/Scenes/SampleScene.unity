@@ -144,7 +144,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 274b01d3a6eae734abf4b9eb840fa381, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  spinSpeed: 0
+  spinSpeed: 10
   rend: {fileID: 0}
 --- !u!135 &286388774
 SphereCollider:
@@ -312,7 +312,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   increment: 0.2
-  panSpeed: 0.2
+  panSpeed: 6
   halfSize: 0
   terrain: {fileID: 1071910782}
   myCamera: {fileID: 534669904}
